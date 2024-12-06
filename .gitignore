@@ -1,0 +1,11 @@
+myenv
+
+.idea
+
+.Ds_store
+
+__pycache__/
+
+.env
+
+test.py

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List</title>
+</head>
+<body>
+    <h1>Products List</h1>
+    <button type="button" onclick='addProduct()'>Add Product</button>
+    <ul id="products-list">
+        {% for product in products %}
+        <li id="product-{{ product.product_id }}">
+            id {{ product.product_id }} Название {{ product.title }} категория {{ product.categories }} фото:
+            {% for image in product.images.all %}
+            <img src="{{ image.images.url }}" alt="{{ product.title }}" style="width: 100px; height: auto;">
+            {% endfor %}
+            <button type="button" onclick='deleteProduct({{ product.product_id }})'>Delete</button>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        function  addProduct(){
+            window.location.href = "/items/add/"
+        }
+        function deleteProduct(productId) {
+        if (confirm('Are you sure you want to delete this product?')) {
+            fetch(`/items/delete/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ productId: productId})
+            })
+            .then(response => {
+                console.log('Response Status:', response.status);  // Логируем статус
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === "success") {
+                    // Удаляем элемент из DOM
+                    const productElement = document.getElementById(`product-${productId}`);
+                    if (productElement) {
+                        productElement.remove();
+                    }
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+    }
+    </script>
+</body>
+</html>

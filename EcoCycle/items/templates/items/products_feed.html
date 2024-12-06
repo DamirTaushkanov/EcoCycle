@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Feed</title>
+</head>
+<body>
+    <h1>Products Feed</h1>
+
+    <!-- Таблица для отображения продуктов -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Date Added</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.product_id }}</td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.categories }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.date_added }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

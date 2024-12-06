@@ -1,0 +1,37 @@
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block content %}
+    <h2>Profile</h2>
+    <!-- Отображаем текущие данные профиля -->
+    <img src="{% if profile.profile_pic %}{{ profile.profile_pic.url }}{% else %}{% static 'default_icon.png' %}{% endif %}" />
+    <p><strong>First Name:</strong> {{ profile.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ profile.last_name }}</p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
+
+    <!-- Форма для редактирования профиля -->
+    <h3>Edit Profile</h3>
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit", onclick="editProfile">Save Changes</button>
+      </form>
+    <script>
+        function editProfile() {
+            if (confirm('Safe edits?')) {
+                const form = document.querySelector('form');
+                const formData = new FormData(form);
+                fetch(`/account/profile/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body : formData
+                })
+                .then(response => {
+                    console.log('Response Status:', response.status);  // Логируем статус
+                    return response.json();
+                })
+            }
+        }
+    </script>
+{% endblock %}
