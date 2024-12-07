@@ -6,7 +6,7 @@ from items.models import Products
 
 class Users(AbstractUser):
     def __str__(self):
-        return self.title
+        return self.username
 
 class UserHistory(models.Model):
     user_id = models.ManyToManyField(Users)

@@ -19,16 +19,18 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-
-from items.views import products_feed_web
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('', include('frontend.urls')),
     path('admin/', admin.site.urls),
-    path('account/', include('accounts.urls')),
-    path('account/', include('allauth.urls')),  # URL для аутентификации allauth
-    path('items/', include('items.urls')),
+    path('account/', include('allauth.urls')),
+    path('api/items/', include('items.urls')),
     path('offer/', include('offers.urls')),
-    path('messenger/', include('messenger.urls'))
-
+    path('messenger/', include('messenger.urls')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
