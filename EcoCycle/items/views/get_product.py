@@ -6,10 +6,10 @@ from items.models import Products
 from ..serializers.serializers import ProductSerializer
 
 @api_view(['GET'])
-def products_list(request):
+def get_product(request):
     try:
-        data = Products.objects.filter(user=request.user)
+        data = Products.objects.get(id=request.data.get('product'))
     except Products.DoesNotExist:
         return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
-    products_list = ProductSerializer(data, many=True)
-    return Response(products_list.data)
+    product = ProductSerializer(data)
+    return Response(product.data)

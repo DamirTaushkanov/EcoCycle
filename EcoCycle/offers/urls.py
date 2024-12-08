@@ -1,6 +1,6 @@
 from django.urls import path
-from offers.views import create_offer_web
+from .views import send_offer
 
 urlpatterns = [
-    path('trade/', create_offer_web, name='send_trade'),
+    path('send/', send_offer.send_offer, name='send_offer')
 ]

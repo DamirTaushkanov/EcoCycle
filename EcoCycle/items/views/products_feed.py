@@ -12,7 +12,6 @@ def products_feed(request):
     try:
         # Дата за последние 7 дней
         last_week = now() - timedelta(days=7)
-        print(request.data.get('category'))
         if request.data.get('category'):
             data = Products.objects.filter(
                 categories=request.data.get('category'),

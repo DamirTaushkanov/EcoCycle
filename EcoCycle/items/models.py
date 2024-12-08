@@ -1,7 +1,6 @@
 from django.db import models
 
 class Products(models.Model):
-    product_id = models.AutoField(primary_key=True)
     user = models.ForeignKey('accounts.Users', on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=False)
     count = models.IntegerField(default=0, blank=False)
@@ -14,5 +13,5 @@ class Products(models.Model):
     def __str__(self):
         return self.title
 class ProductImages(models.Model):
-    product = models.ForeignKey(Products, related_name='images', on_delete=models.CASCADE)
+    product = models.ForeignKey('items.Products', on_delete=models.CASCADE)
     images = models.ImageField(upload_to='products/images/')

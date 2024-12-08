@@ -27,10 +27,10 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('', include('frontend.urls')),
     path('admin/', admin.site.urls),
-    path('account/', include('allauth.urls')),
+    path('api/account/', include('accounts.urls')),
     path('api/items/', include('items.urls')),
-    path('offer/', include('offers.urls')),
-    path('messenger/', include('messenger.urls')),
+    path('api/offer/', include('offers.urls')),
+    path('api/chat/', include('chat.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

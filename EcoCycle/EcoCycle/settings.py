@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'analytics.apps.AnalyticsConfig',
     'items.apps.ItemsConfig',
     'offers.apps.OffersConfig',
-    'messenger.apps.MessengerConfig',
     'frontend.apps.FrontendConfig',
     
     'rest_framework',
